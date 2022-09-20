@@ -5,19 +5,19 @@
 ;; See http://bc.tech.coop/blog/070927.html
 (add-auto-mode 'lisp-mode "\\.cl\\'")
 (add-hook 'lisp-mode-hook (lambda ()
-                            (unless (featurep 'slime)
-                              (require 'slime)
+                            (unless (featurep 'sly)
+                              (require 'sly)
                               (normal-mode))))
 
-(with-eval-after-load 'slime
+(with-eval-after-load 'sly
   (when (executable-find "sbcl")
-    (add-to-list 'slime-lisp-implementations
+    (add-to-list 'sly-lisp-implementations
                  '(sbcl ("sbcl") :coding-system utf-8-unix)))
   (when (executable-find "lisp")
-    (add-to-list 'slime-lisp-implementations
+    (add-to-list 'sly-lisp-implementations
                  '(cmucl ("lisp") :coding-system iso-latin-1-unix)))
   (when (executable-find "ccl")
-    (add-to-list 'slime-lisp-implementations
+    (add-to-list 'sly-lisp-implementations
                  '(ccl ("ccl") :coding-system utf-8-unix))))
 
 ;; From http://bc.tech.coop/blog/070515.html
