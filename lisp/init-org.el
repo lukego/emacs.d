@@ -332,6 +332,11 @@ typical word processor."
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 
+;; lukego
+;;(setq org-icalendar-use-scheduled '(todo-start event-if-todo-not-done event-if-not-todo))
+;;(setq org-icalendar-use-scheduled '(todo-start))
+(setq org-icalendar-include-todo t)
+
 ;; ;; Show iCal calendars in the org agenda
 ;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
 ;;   (setq org-agenda-include-diary t
@@ -384,6 +389,34 @@ typical word processor."
       (sql . t)
       (sqlite . t)))))
 
+
+
+;;; roam
+
+(maybe-require-package 'org-roam)
+(maybe-require-package 'org-roam-dailies)
+(maybe-require-package 'emacsql-sqlite3)
+
+(setq org-roam-directory "~/git/roam")
+
+(define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
+(define-key global-map (kbd "C-c n f") 'org-roam-node-find)
+(define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
+(define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
+
+;;; dailies
+(define-key global-map (kbd "C-c n d") 'org-roam-dailies-map)
+
+(setq org-roam-completion-everywhere t)
+
+(setq org-roam-capture-templates
+      '(("d" "default" plain "%?" :target
+         (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)))
+
+(org-roam-setup)
+
+;; org-roam-capture-templates
 
 (provide 'init-org)
 ;;; init-org.el ends here
